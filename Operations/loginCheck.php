@@ -1,20 +1,20 @@
 <?php
 session_start();
 //login.php
-if(isset($_POST["user_name"]))
+if(isset($_POST["user_Name"]))
 {
-  include "../../connect_restaurent.php";
+include "../Operations/connect_libray.php";
 extract($_POST);
-  $sql = "SELECT id,full_name FROM users WHERE user_name = '$user_name' AND password = md5('$user_password') ";
+  $sql = "SELECT id,fullname FROM users WHERE user_name = '$user_Name' AND password = md5('$password') ";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
 while($row = $result->fetch_assoc()) {
       // output data of each row
 $_SESSION["user_ID"] = $row['id'];
-$_SESSION["user_Name"] = $row['full_name'];
+$_SESSION["user_Name"] = $row['fullname'];
 }
-    echo "<script>window.location='http://" . $_SERVER['SERVER_NAME'] ."/wanter_order_app/pages/dashbord.php';</script>";
+    echo "<script>window.location='http://" . $_SERVER['SERVER_NAME'] ."/LibraryRepApp/Pages/dashborad.php';</script>";
 
 
 }
@@ -22,7 +22,7 @@ $_SESSION["user_Name"] = $row['full_name'];
       echo "اسم المستخدم او كلمة المرور خطأ ..";
   }
 }else {
-header('Location: http://'. $_SERVER["SERVER_NAME"].'/wanter_order_app/pages/samples/404.html');
+header('Location: http://'. $_SERVER["SERVER_NAME"].'/LibraryRepApp/Pages/404.html');
 }
 
 $conn->close();
