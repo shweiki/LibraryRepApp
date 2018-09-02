@@ -127,7 +127,6 @@ if (!isset($_SESSION['user_ID'])){
                               			<tr>
                                       		<td>
                                             <a href="?BookIdDeleted=<?= $row['id'];?>"><button type="button" class="btn btn-danger">حذف</button></a>
-                                            <a href="?BookIdDeleted=<?= $row['id'];?>"><button type="button" class="btn btn-info">تعديل</button></a>
                                           </td>
                                           <td><?= $row["total_qty"]; ?></td>
                                           	<td><?= $row["note"]; ?></td>

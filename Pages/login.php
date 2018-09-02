@@ -47,7 +47,7 @@ header('Location: http://'. $_SERVER["SERVER_NAME"].'/LibraryRepApp/Pages/dashbo
             <div class="form-group">
                 <button class="btn btn-info btn-block" type="submit">دخول</button>
             </div>
-            <div class="form-group" id="response">
+            <div class="form-group" id="response" style="    color: red;">
 
             </div>
 
@@ -72,7 +72,7 @@ header('Location: http://'. $_SERVER["SERVER_NAME"].'/LibraryRepApp/Pages/dashbo
     <script src="assets/js/app.min.js" type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
     <script type="text/javascript">
-        $(function() {
+
             $('#login-form').validate({
                 errorClass: "help-block",
                 rules: {
@@ -89,9 +89,9 @@ header('Location: http://'. $_SERVER["SERVER_NAME"].'/LibraryRepApp/Pages/dashbo
                 },
                 unhighlight: function(e) {
                     $(e).closest(".form-group").removeClass("has-error")
-                },
+                }
             });
-        });
+
         $("#login-form").on("submit", function (event) {
   if (event.isDefaultPrevented()) {
       // handle the invalid form...
@@ -102,12 +102,10 @@ header('Location: http://'. $_SERVER["SERVER_NAME"].'/LibraryRepApp/Pages/dashbo
           type: 'POST',
           url: '../Operations/loginCheck.php',
           data: $(this).serialize()
-      })
-      .done(function(data){
+      }).done(function(data){
 $('#response').append(data);
 //   alert( "done" );
-
-      })
+})
       .fail(function() {
 
           // just in case posting your form failed

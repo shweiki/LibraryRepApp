@@ -13,7 +13,19 @@ VALUES (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "تم اضافة مجموعة مواد جديدة .";
+  $sql = "SELECT MAX(id) FROM group_books ";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+// output data of each row
+while($row = $result->fetch_assoc()) {
+  $new_id = $row['id']+1;
+  echo "<option value='$new_id'>
+  $name_Group
+  </option>
+  ";
+}
+}
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

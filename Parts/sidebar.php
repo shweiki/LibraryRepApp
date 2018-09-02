@@ -9,43 +9,43 @@
         </div>
         <ul class="side-menu metismenu">
             <li>
-                <a class="active" href="#"><i class="sidebar-item-icon fa fa-th-large"></i>
+                <a class="active" href="../pages/dashborad.php"><i class="sidebar-item-icon fa fa-th-large"></i>
                     <span class="nav-label">الرئيسية</span>
                 </a>
             </li>
             <li class="heading">مستودعات</li>
             <li>
-                <a href="../Pages/Selection&OutBooks.php"><i class="sidebar-item-icon fa fa-smile-o"></i>
+                <a href="../Pages/Selection&OutBooks.php"><i class="sidebar-item-icon ti-arrow-up"></i>
                     <span class="nav-label">استعلامات و اخراج الكتب <span>
                 </a>
             </li>
             <li>
-                <a href="../Pages/addbook&group.php"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                    <span class="nav-label">اضافة كتاب او قسم <span>
+                <a href="../Pages/addbook&group.php"><i class="sidebar-item-icon ti-book"></i>
+                    <span class="nav-label">اضافة و تعديل كتاب او قسم <span>
                 </a>
             </li>
             <li>
-                <a href="../Pages/Delete&EditBooks.php"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                    <span class="nav-label">حذف و تعديل الكتب<span>
+                <a href="../Pages/Delete&EditBooks.php"><i class="sidebar-item-icon ti-trash"></i>
+                    <span class="nav-label">حذف كتاب او قسم<span>
                 </a>
             </li>
             <li>
-                <a href="../Pages/EnterMoveBooks.php"><i class="sidebar-item-icon fa fa-smile-o"></i>
+                <a href="../Pages/EnterMoveBooks.php"><i class="sidebar-item-icon ti-arrow-down"></i>
                     <span class="nav-label">ادخال كميات الكتب<span>
                 </a>
             </li>
             <li>
-                <a href="MovementRep.php"><i class="sidebar-item-icon fa fa-smile-o"></i>
+                <a href="MovementRep.php"><i class="sidebar-item-icon ti-split-v"></i>
                     <span class="nav-label">استعلامات حركات الكتب <span>
                 </a>
             </li>
             <li class="heading">--------</li>
             <li>
-                <a href="../Pages/register.php"><i class="sidebar-item-icon fa fa-calendar"></i>
+                <a href="../Pages/register.php"><i class="sidebar-item-icon ti-stamp"></i>
                     <span class="nav-label">مستخدم جديد</span>
                 </a>
             </li>
-      
+
 
         </ul>
     </div>

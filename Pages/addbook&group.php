@@ -144,7 +144,7 @@ header('Location: http://'.$_SERVER["SERVER_NAME"].'/LibraryRepApp/pages/login.p
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label">بضافة اول المدة :  </label>
                                                     <div class="col-sm-9">
-                                                        <input class="form-control" type="text" name="total_qty">
+                                                        <input class="form-control" type="number" value="0" name="total_qty">
                                                     </div>
                                                 </div>
                                                   <div class="form-group row">
@@ -195,7 +195,8 @@ header('Location: http://'.$_SERVER["SERVER_NAME"].'/LibraryRepApp/pages/login.p
                                                       <div class="col-sm-12 ml-sm-auto">
                                                           <button class="btn btn-info btn-block" type="submit">حفظ</button>
                                                       </div>
-                                                  </di
+                                                  </div>
+
                                               </form>
                                           </div>
                                       </div>
@@ -264,7 +265,7 @@ if (event.isDefaultPrevented()) {
        data: $(this).serialize()
    })
    .done(function(data){
-//$('#response').append(data);
+$('#group_books').append(data);
 $('.alert-success').removeClass( "hidden" ).addClass( "show" );
 $("#form-addgroup")[0].reset();
 
