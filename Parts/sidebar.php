@@ -13,36 +13,43 @@
                     <span class="nav-label">الرئيسية</span>
                 </a>
             </li>
-            <li class="heading">مستودعات</li>
+            <li class="heading">المبيعات</li>
             <li>
-                <a href="../Pages/Selection&OutBooks.php"><i class="sidebar-item-icon ti-arrow-up"></i>
-                    <span class="nav-label">استعلامات و اخراج الكتب <span>
+                <a href="../Pages/Sales.php"><i class="sidebar-item-icon ti-export"></i>
+                    <span class="nav-label">صفحة المبيعات<span>
                 </a>
             </li>
+            <li>
+                <a href="../Pages/salesbooks.php"><i class="sidebar-item-icon ti-pie-chart"></i>
+                    <span class="nav-label">إستعلامات مبيعات الكتب<span>
+                </a>
+            </li>
+              <li class="heading">المستودعات</li>
             <li>
                 <a href="../Pages/addbook&group.php"><i class="sidebar-item-icon ti-book"></i>
-                    <span class="nav-label">اضافة و تعديل كتاب او قسم <span>
+                    <span class="nav-label">تعريف كتاب و قسم جديد<span>
                 </a>
             </li>
+
             <li>
                 <a href="../Pages/Delete&EditBooks.php"><i class="sidebar-item-icon ti-trash"></i>
-                    <span class="nav-label">حذف كتاب او قسم<span>
+                    <span class="nav-label">تعديل وحذف كتاب و قسم <span>
                 </a>
             </li>
             <li>
-                <a href="../Pages/EnterMoveBooks.php"><i class="sidebar-item-icon ti-arrow-down"></i>
-                    <span class="nav-label">ادخال كميات الكتب<span>
+                <a href="../Pages/Payment.php"><i class="sidebar-item-icon ti-import"></i>
+                    <span class="nav-label">صفحة المشتريات<span>
                 </a>
             </li>
             <li>
-                <a href="MovementRep.php"><i class="sidebar-item-icon ti-split-v"></i>
+                <a href="MovementRep.php"><i class="sidebar-item-icon ti-exchange-vertical"></i>
                     <span class="nav-label">استعلامات حركات الكتب <span>
                 </a>
             </li>
             <li class="heading">--------</li>
             <li>
                 <a href="../Pages/register.php"><i class="sidebar-item-icon ti-stamp"></i>
-                    <span class="nav-label">مستخدم جديد</span>
+                    <span class="nav-label">تعريف مستتخدم جديد</span>
                 </a>
             </li>
 

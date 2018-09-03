@@ -13,13 +13,12 @@ VALUES (
 )";
 
 if ($conn->query($sql) === TRUE) {
-  $sql = "SELECT MAX(id) FROM group_books ";
+  $sql = "SELECT MAX(id)  as new_Id FROM group_books";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
 // output data of each row
 while($row = $result->fetch_assoc()) {
-  $new_id = $row['id']+1;
+  $new_id = $row['new_Id'];
   echo "<option value='$new_id'>
   $name_Group
   </option>
