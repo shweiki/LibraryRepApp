@@ -100,8 +100,8 @@ if (!isset($_SESSION['user_ID'])){
                                       <td><?= $row["name"]; ?></td>
                                       <td><?= $row["GroupBook"]; ?></td>
                                       <td><?= $row["author"]; ?></td>
-                                            <td><?= $row["cost_price"]; ?></td>
-                                            	<td><?= $row["sale_price"]; ?></td>
+                                            <td><?= number_format($row["cost_price"],3); ?> $</td>
+                                            	<td><?= number_format($row["sale_price"],3); ?> $</td>
                                               <td><?= $row["note"]; ?></td>
                                                 <td class="bg-success color-white widget-stat"><?= $row["total_qty"]; ?></td>
                                     <td>

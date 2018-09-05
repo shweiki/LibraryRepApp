@@ -100,6 +100,7 @@ if (!isset($_SESSION['user_ID'])){
                                         }
 
                                                           while($row = mysqli_fetch_assoc($result)) {
+                                                        //    date_default_timezone_set("America/New_York");
                                                             $total_move=$row["sale_price"]*$row["qty_move"];
                                                          $type = ($row["type_M"] == 1 ? "مشتريات" :"مبيعات ");
                                                             $typeColor = ($row["type_M"] == 1 ? "color-view bg-primary":"color-view bg-silver");
@@ -109,11 +110,11 @@ if (!isset($_SESSION['user_ID'])){
                                       <td><?= $row["author"]; ?></td>
                                       <td class="<?= $typeColor ?>"><?= $type ?></td>
                                         <td class="color-view bg-teal"><?= $row["qty_move"]; ?></td>
-                                    <td class="color-view bg-teal"><?= $row["sale_price"]; ?></td>
-                                      <td class="color-view bg-teal"><?= $total_move ?></td>
+                                    <td class="color-view bg-teal"> <?= number_format($row["sale_price"],3); ?> $</td>
+                                      <td class="color-view bg-teal"> <?= number_format($total_move, 3); ?> $</td>
                                             	<td><?= $row["note"]; ?></td>
 
-                                    <td><?= $row["posting_datatime"]; ?></td>
+                                    <td><?= date("Y-m-d",strtotime($row["posting_datatime"])); ?></td>
                                         <td><?= $row["User_name"]; ?></td>
                                     </tr>
                               			<?php
@@ -173,7 +174,7 @@ if (!isset($_SESSION['user_ID'])){
     } );
 },
                       select: true ,
-                        pageLength: 20,
+                        pageLength: 10,
                         "language": {
                "search": "بحث عن الكتب :",
                "lengthMenu": "عرض  _MENU_ صفوف",
