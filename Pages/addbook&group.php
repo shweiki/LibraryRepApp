@@ -134,7 +134,7 @@ if (!isset($_SESSION['user_ID'])){
                                                       </div>
                                                   </div>
                                                   <div class="form-group row">
-                                                      <div class="col-sm-9 ml-sm-auto">
+                                                      <div class="col-sm-12 ml-sm-auto">
                                                           <button class="btn btn-info btn-block" type="submit">اضافة</button>
                                                       </div>
                                                   </div>

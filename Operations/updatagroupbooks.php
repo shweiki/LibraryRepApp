@@ -4,15 +4,10 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 extract($_POST);
-$sql = "UPDATE books SET
- name='$name' ,
-author='$author',
-cost_price=$cost_price,
-sale_price=$sale_price,
-note='$note',
-number_stamp='$number_stamp',
-group_books_id=$group_books
- WHERE id=$book_id";
+$sql = "UPDATE group_books SET
+ name='$groupname' ,
+note='$groupnote'
+ WHERE id=$Group_book_id";
 
  if (mysqli_query($conn, $sql)) {
      echo "Record updated successfully";

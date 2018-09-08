@@ -2,27 +2,14 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_ID'])){
-   header('Location: http://'.$_SERVER["SERVER_NAME"].'/LibraryRepApp/pages/login.php');
+    header('Location: http://'.$_SERVER["SERVER_NAME"].'/LibraryRepApp/pages/login.php');
         }
 
 ?>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Shadow Library Storage</title>
-    <!-- GLOBAL MAINLY STYLES-->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
-    <!-- PLUGINS STYLES-->
-    <link href="assets/vendors/DataTables/datatables.min.css" rel="stylesheet" />
-    <!-- THEME STYLES-->
-    <link href="assets/css/main.min.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="../favicon.ico" />
-    <!-- PAGE LEVEL STYLES-->
+<?php require_once('../Parts/head.html'); ?>
 </head>
     <?php include "../Operations/connect_libray.php"; ?>
 <body class="fixed-navbar">
@@ -35,29 +22,39 @@ if (!isset($_SESSION['user_ID'])){
         <!-- END SIDEBAR-->
         <div class="content-wrapper" >
             <!-- START PAGE CONTENT-->
+            <div class="col-11 alert alert-success alert-dismissable fade hidden" style="text-align: center;">
+           <button class="close" data-dismiss="alert" aria-label="Close">×</button> <strong>تهانينا !</strong> تم العملية بنجاح
+              </div>
+              <div class="col-11 alert alert-warning alert-dismissable fade hidden " style="text-align: center;">
+                <button class="close" data-dismiss="alert" aria-label="Close">×</button><strong>تحذير!</strong> لا يمكنك حذف العنصر لوجود حركات مرتبطة به
+              </div>
+
+
             <div class="page-heading">
-                <h1 class="page-title">DataTables</h1>
+                <h1 class="page-title font-weight-bold">تسجيل مستخدم جديد</h1>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html"><i class="la la-home font-20"></i></a>
+                        <a href="dashborad.php"><i class="la la-home font-20"></i> الرئيسية </a>
                     </li>
-                    <li class="breadcrumb-item">DataTables</li>
+                    <li class="breadcrumb-item"> التاريخ :<?=date("Y-m-d ");?></li>
                 </ol>
             </div>
-            <div class="page-content fade-in-up">
-
+            <div class="page-content fade-in-up" id="response">
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
 
                                       <div class="ibox">
-                                          <div class="ibox-head">
-                                            <div class="ibox-tools">
-                                                <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
-                                            </div>
-                                              <div class="ibox-title">تسجيل مستخدم جديد</div>
 
-                                          </div>
+                                                <div class="ibox-head">
+
+                                                    <div class="ibox-title">بيانات المستخدم </div>
+                                                    <div class="ibox-tools">
+                                                        <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                                                    </div>
+                                                </div>
+
                                           <div class="ibox-body" >
                                             <form method="post" class="form-horizontal" id="register-form"   style="direction: rtl;">
                                                 <div class="row">

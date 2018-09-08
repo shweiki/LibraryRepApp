@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="MovementRep.php"><i class="sidebar-item-icon ti-exchange-vertical"></i>
-                    <span class="nav-label">استعلامات حركات الكتب <span>
+                    <span class="nav-label">إستعلامات مشتريات الكتب<span>
                 </a>
             </li>
             <li class="heading">--------</li>

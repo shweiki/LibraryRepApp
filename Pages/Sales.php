@@ -42,9 +42,61 @@ if (!isset($_SESSION['user_ID'])){
             <div class="page-content fade-in-up" id="response">
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-9">
+
+                                      <div class="ibox ibox-grey">
+
+                                                <div class="ibox-head">
+
+                                                    <div class="ibox-title">حركة رقم : </div>
+                                                    <div class="ibox-tools">
+                                                        <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                                                    </div>
+                                                </div>
+                                          <div class="ibox-body">
+                                            <table class="table table-hover"  id="items_invoice" cellspacing="0" width="100%" >
+                                                            <caption>Optional table caption.</caption>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>اسم الكتاب</th>
+                                                                    <th>الكمية</th>
+                                                                    <th>السعر بوحدة</th>
+                                                                      <th>المجموع</th>
+                                                                        <th>#</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+
+                                                            </tbody>
+                                                        </table>
+                                          </div>
+                                      </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                          <div class="ibox ibox-success">
+
+                                                    <div class="ibox-head">
+
+                                                        <div class="ibox-title">حركة رقم : </div>
+                                                        <div class="ibox-tools">
+                                                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                                            <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                                                        </div>
+                                                    </div>
+                                              <div class="ibox-body">
+
+                                              </div>
+                                          </div>
+                                            </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
 
-                                      <div class="ibox">
+                                      <div class="ibox ibox-grey">
 
                                                 <div class="ibox-head">
 
@@ -58,20 +110,21 @@ if (!isset($_SESSION['user_ID'])){
                                               <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                                                   <thead>
                                                       <tr>
-                                                        <th>اسم</th>
-                                                        <th>المجموعة</th>
-                                                        <th>المؤلف</th>
-                                                        <th>سعر التكلفة</th>
-                                                        <th>سعر البيع</th>
-                                                        <th>ملاحظات</th>
-                                                        <th>الكمية المتوفرة</th>
-                                                            <th>العدد</th>
-                                                              <th>البيان</th>
-                                                                      <th>#</th>
+                                                        <th>رقم </th>
+                                                      <th>اسم</th>
+                                                      <th>المجموعة</th>
+                                                      <th>المؤلف</th>
+                                                      <th>سعر التكلفة</th>
+                                                      <th>سعر البيع</th>
+                                                      <th>ملاحظات</th>
+                                                      <th>الكمية المتوفرة</th>
+
+                                                          <th>#</th>
                                                       </tr>
                                                   </thead>
                                                   <tfoot>
                                                       <tr>
+                                                          <th>رقم </th>
                                                         <th>اسم</th>
                                                         <th>المجموعة</th>
                                                         <th>المؤلف</th>
@@ -79,15 +132,14 @@ if (!isset($_SESSION['user_ID'])){
                                                         <th>سعر البيع</th>
                                                         <th>ملاحظات</th>
                                                         <th>الكمية المتوفرة</th>
-                                                            <th>العدد</th>
-                                                              <th>البيان</th>
-                                                                      <th>#</th>
+
+                                                            <th>#</th>
                                                       </tr>
                                                   </tfoot>
                                                   <tbody>
 
                                                     <?php
-                              											$sql = "SELECT B.id ,B.name , B.author ,B.cost_price, B.sale_price ,B.total_qty ,B.note , GB.name as GroupBook
+                                                    $sql = "SELECT B.id ,B.name , B.author ,B.cost_price, B.sale_price ,B.total_qty ,B.note , GB.name as GroupBook
                                                      FROM books B , group_books GB where  Gb.id = B.group_books_id";
                                                      $result = $conn->query($sql);
                                                      if (!$result) {
@@ -95,28 +147,25 @@ if (!isset($_SESSION['user_ID'])){
                                          }
 
                                       while($row = mysqli_fetch_assoc($result)) {
-                              			?>
-                              			<tr>
+                                    ?>
+                                    <tr>
+                                          <td><?= $row["id"]; ?></td>
                                       <td><?= $row["name"]; ?></td>
                                       <td><?= $row["GroupBook"]; ?></td>
                                       <td><?= $row["author"]; ?></td>
                                             <td><?= number_format($row["cost_price"],3); ?> $</td>
-                                            	<td><?= number_format($row["sale_price"],3); ?> $</td>
+                                              <td><?= number_format($row["sale_price"],3); ?> $</td>
                                               <td><?= $row["note"]; ?></td>
                                                 <td class="bg-success color-white widget-stat"><?= $row["total_qty"]; ?></td>
-                                    <td>
-                                      <input class="form-control col-3" type="number" id="num_out_book" name="num_out_book" value="1">
-                                    </td>
-                                      <td>
-                                        <input class="form-control col-9" type="text" id="note_out" name="note_out" placeholder="ملاحظات">
-                                      </td>
+
+
                                         <td>
-                                          <button type="button" class="btn btn-success" id="do_out_book" value="<?= $row["id"]; ?>">ترحيل</button>
+                                      <button type="button" class="btn btn-success" id="addRow" ><span class="ti-plus"></span></button>
                                         </td>
                                     </tr>
-                              			<?php
+                                    <?php
                                   }
-                              $conn->close();
+
                               ?>
 
 
@@ -124,7 +173,7 @@ if (!isset($_SESSION['user_ID'])){
                                               </table>
                                           </div>
                                       </div>
-                                    </div>
+                                        </div>
 
                                 </div>
 
@@ -147,7 +196,68 @@ if (!isset($_SESSION['user_ID'])){
   <?php require_once('../Parts/script.html'); ?>
     <!-- PAGE LEVEL SCRIPTS-->
     <script type="text/javascript">
-    $(function() {
+      var inventory = [];
+        var t = $('#items_invoice').DataTable();
+    $(document).ready(function() {
+function check_items (idb ,data)
+{
+  var find= false;
+  for (var i = inventory.length-1 ; i >= 0; i--){
+  // look for the entry with a matching `code` value
+  if (inventory[i].id == idb){
+    find=true;
+inventory[i].quantity++;
+inventory[i].amount = inventory[i].price * inventory[i].quantity ;
+  //var last = inventory.length-1;
+  alert(i);
+//eror here i 
+ t.row(i).data([
+        inventory[i].id,
+       inventory[i].name,
+     inventory[i].quantity,
+       inventory[i].price,
+       inventory[i].amount,
+       '<button type="button" class="btn btn-danger" id="deleteRow" ><span class="ti-close"></span></button>'
+ ]);
+  }
+}
+if(!find){
+  last = inventory.length-1;
+  inventory.push(data);
+  t.row.add( [
+      inventory[last].id,
+      inventory[last].name,
+    inventory[last].quantity,
+      inventory[last].price,
+      inventory[last].amount,
+      '<button type="button" class="btn btn-danger" id="deleteRow" ><span class="ti-close"></span></button>'
+  ] ).draw( false );
+}
+
+}
+$('#example-table tbody').on( 'click', '#addRow', function () {
+//  $(this).closest('tr').addClass("color-view bg-info");
+    var book_id= $(this).closest('tr').find('td:eq(0)').html();
+    book_id = parseInt(book_id);
+      var book_name= $(this).closest('tr').find('td:eq(1)').html();
+        var sale_price= $(this).closest('tr').find('td:eq(5)').html();
+        sale_price = parseInt(sale_price)
+        var amount = sale_price* 1;
+         var data_items = { "id" : book_id, "name":book_name , "price" :sale_price , "quantity":1 ,"amount" :amount };
+         //alert(data_items.id);
+        check_items(book_id , data_items);
+
+} );
+$('#items_invoice tbody').on( 'click', '#deleteRow', function () {
+  var index = t.row( $(this).parents('tr')).index();
+
+  delete inventory[index].id;
+t.row( $(this).parents('tr') ).remove().draw();
+
+} );
+});
+    $(document).ready(function() {
+
         $('#example-table').DataTable({
           select: true ,
             pageLength: 20,
@@ -169,12 +279,17 @@ if (!isset($_SESSION['user_ID'])){
                 { "data": "salary" }
             ]*/
         });
-    });
+
+
+
+        // Automatically add a first row of data
+      //  $('#addRow').click();
+});
     </script>
       <script type="text/javascript">
     $(document).ready(function() {
-        $('#example-table_filter').addClass('input-group-lg');
-    var table = $('#example-table').DataTable();
+      //  $('#example-table_filter').addClass('input-group-lg');
+
     $('#example-table tbody').on( 'click', '#do_out_book', function () {
   $(this).closest('tr').addClass("color-view bg-info");
     var book_id= $(this).val();

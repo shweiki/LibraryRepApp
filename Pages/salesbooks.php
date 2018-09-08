@@ -61,6 +61,7 @@ if (!isset($_SESSION['user_ID'])){
                                               <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                                                   <thead>
                                                       <tr>
+                                                        <th>الرقم</th>
                                                         <th>الكتاب</th>
                                                         <th>المؤلف</th>
                                                         <th>نوع الحركة</th>
@@ -74,6 +75,7 @@ if (!isset($_SESSION['user_ID'])){
                                                   </thead>
                                                   <tfoot>
                                                       <tr>
+                                                        <th>الرقم</th>
                                                         <th>الكتاب</th>
                                                         <th>المؤلف</th>
                                                         <th>نوع الحركة</th>
@@ -87,7 +89,7 @@ if (!isset($_SESSION['user_ID'])){
                                                   </tfoot>
                                                   <tbody>
                                                     <?php
-                              			$sql = "SELECT B.name ,B.sale_price, B.author , GB.name as Group_name , RM.type_M , RM.qty_move , RM.note , RM.posting_datatime , U.fullname as User_name
+                              			$sql = "SELECT B.name ,B.sale_price, B.author , GB.name as Group_name , RM.type_M , RM.qty_move ,RM.id as MID , RM.note , RM.posting_datatime , U.fullname as User_name
                                                      FROM  repository_move RM , books B , group_books GB , users U
                                                       WHERE  B.id = RM.book_id
                                                       AND Gb.id = RM.book_id
@@ -106,6 +108,7 @@ if (!isset($_SESSION['user_ID'])){
                                                             $typeColor = ($row["type_M"] == 1 ? "color-view bg-primary":"color-view bg-silver");
                               			?>
                               			<tr>
+                                      <td><?= $row["MID"]; ?></td>
                                       <td><?= $row["name"]; ?></td>
                                       <td><?= $row["author"]; ?></td>
                                       <td class="<?= $typeColor ?>"><?= $type ?></td>
