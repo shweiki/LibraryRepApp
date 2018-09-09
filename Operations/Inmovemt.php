@@ -7,15 +7,17 @@ extract($_POST);
 $time_log = date("Y-m-d h:i:sa");
 $id_user=$_SESSION['user_ID'];
 $sql = "INSERT INTO repository_move (
-book_id, type_M, qty_move, note,  posting_datatime, user_id
+book_id, type_M, qty_move, note , invoice_id, posting_datatime, user_id
 )
 VALUES (
   $book_id,
   1,
   $number,
   '$note',
+  null,
 '$time_log',
   $id_user
+
 )";
 if ($conn->query($sql) === TRUE) {
 echo $new_totalqty;

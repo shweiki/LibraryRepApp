@@ -11,7 +11,16 @@ if (!isset($_SESSION['user_ID'])){
 <head>
 <?php require_once('../Parts/head.html'); ?>
 </head>
-    <?php include "../Operations/connect_libray.php"; ?>
+    <?php include "../Operations/connect_libray.php";
+    $sql = "SELECT MAX(id) as new_Id_Invoice FROM invoice";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+$new_Id_Invoice = $row['new_Id_Invoice'] + 1;
+
+}
+}
+     ?>
 <body class="fixed-navbar">
     <div class="page-wrapper">
         <!-- START HEADER-->
@@ -78,33 +87,32 @@ if (!isset($_SESSION['user_ID'])){
 
                                                     <div class="ibox-head">
 
-                                                        <div class="ibox-title">فاتورة رقم : </div>
+                                                        <div class="ibox-title">فاتورة رقم : <?= $new_Id_Invoice ?></div>
                                                         <div class="ibox-tools">
                                                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                                                             <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
                                                         </div>
                                                     </div>
                                               <div class="ibox-body">
-                                                <form class="form-horizontal" id="form-invoice"  novalidate="novalidate">
+                                                <form class="form-horizontal" id="form-invoice">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label"> عدد الاصناف </label>
-                                                        <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="name" readonly>
+                                                        <div class="col-sm-3">
+                                                            <input class="form-control" type="text" id ="total_items" name="total_items" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">العدد الكلي</label>
-                                                        <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="author" readonly>
+                                                        <div class="col-sm-3">
+                                                            <input class="form-control" type="text" id="total_qty" name="total_qty" readonly>
                                                         </div>
                                                     </div>
 
+
                                                     <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">مجموع المبلغ</label>
-                                                        <div class="col-sm-9">
+                                                        <div class="col-sm-6">
                                                           <div class="input-group">
                                                               <div class="input-group-addon bg-white">$</div>
-                                                              <input class="form-control" type="text" placeholder="" name="cost_price" readonly>
+                                                              <input class="form-control" type="text" id="total_ammount" name="total_ammount" readonly>
                                                               <div class="input-group-addon bg-white">.00</div>
                                                               </div>
 
@@ -113,13 +121,13 @@ if (!isset($_SESSION['user_ID'])){
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">اسم الزبون : </label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="note">
+                                                            <input class="form-control" type="text" id="customer_name" name="customer_name">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">ملاحظات :  </label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="note">
+                                                            <input class="form-control" type="text" id="invoice_note" name="invoice_note">
                                                         </div>
                                                     </div>
 
@@ -204,10 +212,7 @@ if (!isset($_SESSION['user_ID'])){
                                       <button type="button" class="btn btn-success" id="addRow" ><span class="ti-plus"></span></button>
                                         </td>
                                     </tr>
-                                    <?php
-                                  }
-
-                              ?>
+                                    <?php } ?>
 
 
                                                   </tbody>
@@ -217,6 +222,32 @@ if (!isset($_SESSION['user_ID'])){
                                         </div>
 
                                 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="direction : rtl;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">المبلغ المطلوب لفاتورة رقم :  <?= $new_Id_Invoice ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <h1 id="ammount_cach" class="display-1"></h1>
+      </div>
+      <div class="modal-footer">
+        <div class="col-sm-5 ml-sm-auto">
+        <button id="submit_invoice" type="button" class="btn btn-primary btn-block">تاكيد</button>
+        </div>
+          <div class="col-sm-5 ml-sm-auto">
+          <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">الغاء</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -238,16 +269,16 @@ if (!isset($_SESSION['user_ID'])){
     <!-- PAGE LEVEL SCRIPTS-->
     <script type="text/javascript">
   var inventory = [];
-  var invoice = [
+  var invoice =
     {
-      "id" : 0,
+      "id" : <?= $new_Id_Invoice ?>,
       "customer" : "",
       "note" : "",
       "total_items" : 0,
       "total_qty" : 0 ,
       "total_ammount" : 0
     }
-  ];
+  ;
   $('#items_invoice').dataTable( {
     "searching": false,
     "paging":   false,
@@ -265,33 +296,37 @@ function check_items (id ,data)
   if (inventory[i].id === id){
     find=true;
 inventory[i].quantity++;
-invoice[0].total_qty++;
-inventory[i].amount = inventory[i].price * inventory[i].quantity ;
-invoice[0].total_ammount +=inventory[i].amount;
+invoice.total_qty++;
+inventory.amount = inventory[i].price * inventory[i].quantity ;
+invoice.total_ammount +=inventory[i].price;
  t.row(i).data([
         inventory[i].id,
        inventory[i].name,
      inventory[i].quantity,
-       inventory[i].price,
-       inventory[i].amount,
+       "$"+inventory[i].price.toFixed(3),
+       "$"+inventory[i].amount.toFixed(3),
        '<button type="button" class="btn btn-danger" id="deleteRow" ><span class="ti-close"></span></button>'
  ]);
   }
 }
 if(!find){
-  invoice[0].total_items++;
     inventory.push(data);
-  last = inventory.length-1;
+      last = inventory.length-1;
+  invoice.total_items++;
+  invoice.total_qty++;
+  invoice.total_ammount += inventory[last].price;
   t.row.add( [
       inventory[last].id,
       inventory[last].name,
     inventory[last].quantity,
-      inventory[last].price,
-      inventory[last].amount,
+       "$"+inventory[last].price.toFixed(3),
+       "$"+inventory[last].amount.toFixed(3),
       '<button type="button" class="btn btn-danger" id="deleteRow" ><span class="ti-close"></span></button>'
   ] ).draw( false );
 }
-
+$("#total_items").val(invoice.total_items.toFixed(3));
+$("#total_qty").val(invoice.total_qty.toFixed(3));
+$("#total_ammount").val(invoice.total_ammount.toFixed(3));
 }
 $('#example-table tbody').on( 'click', '#addRow', function () {
 //  $(this).closest('tr').addClass("color-view bg-info");
@@ -299,19 +334,24 @@ $('#example-table tbody').on( 'click', '#addRow', function () {
     book_id = parseInt(book_id);
       var book_name= $(this).closest('tr').find('td:eq(1)').html();
         var sale_price= $(this).closest('tr').find('td:eq(5)').html();
-        sale_price = parseInt(sale_price)
+        sale_price = parseInt(sale_price);
+        var total_qty = $(this).closest('tr').find('td:eq(7)').html();
+          total_qty = parseInt(total_qty);
         var amount = sale_price* 1;
-          data_items = { "id" : book_id, "name":book_name , "price" :sale_price , "quantity":1 ,"amount" :amount };
-         //alert(data_items.id);
+        data_items = { "id" : book_id, "name":book_name , "price" :sale_price , "quantity":1 ,"amount" :amount ,"total_qty_we_have" :total_qty  };
         check_items( book_id, data_items);
-
 } );
 $('#items_invoice tbody').on( 'click', '#deleteRow', function () {
   var index = t.row( $(this).parents('tr')).index();
+  invoice.total_qty -=inventory[index].quantity;
+  invoice.total_items--;
+  invoice.total_ammount -= inventory[index].quantity*inventory[index].price;
+  $("#total_items").val(invoice.total_items.toFixed(3));
+  $("#total_qty").val(invoice.total_qty.toFixed(3));
+  $("#total_ammount").val(invoice.total_ammount.toFixed(3));
 inventory.splice(index, 1);
 t.row( $(this).parents('tr') ).remove().draw();
-
-} );
+});
 });
     $(document).ready(function() {
 
@@ -332,45 +372,42 @@ t.row( $(this).parents('tr') ).remove().draw();
     </script>
       <script type="text/javascript">
     $(document).ready(function() {
-      //  $('#example-table_filter').addClass('input-group-lg');
+       $("#form-invoice").on("submit", function (event) {
+         $("#ammount_cach").html("$"+invoice.total_ammount.toFixed(3));
+         $('#exampleModalCenter').modal('show');
+    invoice.customer= $("#customer_name").val();
+    invoice.note= $("#invoice_note").val();
+  if (event.isDefaultPrevented()) {
+     // handle the invalid form...
+  } else {
+     // everything looks good!
+     event.preventDefault();
+     $('#exampleModalCenter').on( 'click', '#submit_invoice', function () {
+     $.ajax({
+type: "POST",
+url: "../Operations/AddInvoice.php",
+dataType: "text",
+data: { invoice_data : JSON.stringify(invoice) , movment_inventory_invoce : JSON.stringify(inventory)  },
+success: function(data){
 
-    $('#example-table tbody').on( 'click', '#do_out_book', function () {
-  $(this).closest('tr').addClass("color-view bg-info");
-    var book_id= $(this).val();
-  var num_out_book= $(this).closest('td').prev('td').prev('td').find('input').val();
-  var note_out= $(this).closest('td').prev('td').find('input').val();
-  var total_qty= $(this).closest('td').prev('td').prev('td').prev('td').html();
-  new_total_qty =total_qty - num_out_book;
-$(this).closest('td').prev('td').prev('td').prev('td').html(new_total_qty);
-  /// ajax
-  $.ajax({
-      type: 'POST',
-      url: '../Operations/Outmovemt.php',
-     data:  { book_id:book_id, number:num_out_book , new_totalqty:new_total_qty , note:note_out},
-  })
-  .done(function(data){
-//$('#response').append(data);
-$('#example-table tr').find('#note_out').val("");
-$('#example-table tr').find('#num_out_book').val(1);
-$('.alert-success').removeClass( "hidden" ).addClass( "show" );
-$(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert-success").slideUp(500);
+
+    $('#response').html( data );
+   console.log(data);
+   return true;
+},
+complete: function() {},
+error: function(xhr, textStatus, errorThrown) {
+    $('#response').html( data );
+  console.log('ajax loading error...');
+  return false;
+}
 });
-  })
-  .fail(function() {
-      // just in case posting your form failed
-      alert( "حصل خطأ ما الرجاء اعادة المحاولة ! ..." );
-
+document.location.reload(true);
+   });
+  }
   });
 
-  // to prevent refreshing the whole page page
-  return false;
-
-    } );
-
-
-} );
-
+    });
     </script>
 </body>
 

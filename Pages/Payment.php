@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_ID'])){
 <html lang="en">
 
 <head>
-  <?php require_once('../Parts/head.html'); ?>
+<?php require_once('../Parts/head.html'); ?>
 </head>
     <?php include "../Operations/connect_libray.php"; ?>
 <body class="fixed-navbar">
@@ -22,70 +22,69 @@ if (!isset($_SESSION['user_ID'])){
         <!-- END SIDEBAR-->
         <div class="content-wrapper" >
             <!-- START PAGE CONTENT-->
-
-            <div class="col-9 alert alert-success alert-dismissable fade hidden" style="text-align: center;">
+            <div class="col-11 alert alert-success alert-dismissable fade hidden" style="text-align: center;">
            <button class="close" data-dismiss="alert" aria-label="Close">×</button> <strong>تهانينا !</strong> تم العملية بنجاح
               </div>
-              <div class="col-9 alert alert-warning alert-dismissable fade hidden " style="text-align: center;">
+              <div class="col-11 alert alert-warning alert-dismissable fade hidden " style="text-align: center;">
                 <button class="close" data-dismiss="alert" aria-label="Close">×</button><strong>تحذير!</strong> لا يمكنك حذف العنصر لوجود حركات مرتبطة به
               </div>
 
 
             <div class="page-heading">
-                <h1 class="page-title">DataTables</h1>
+                <h1 class="page-title font-weight-bold">تسجيل مشتريات</h1>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html"><i class="la la-home font-20"></i></a>
+                        <a href="dashborad.php"><i class="la la-home font-20"></i> الرئيسية </a>
                     </li>
-                    <li class="breadcrumb-item">DataTables</li>
+                    <li class="breadcrumb-item"> التاريخ :<?=date("Y-m-d ");?></li>
                 </ol>
             </div>
             <div class="page-content fade-in-up" id="response">
-
-
-
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
 
                                       <div class="ibox">
 
                                                 <div class="ibox-head">
+                                                    <div class="ibox-title">تسجيل مشتريات </div>
                                                   <div class="ibox-tools">
                                                       <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                                                       <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
                                                   </div>
-                                                    <div class="ibox-title">استعلامات جميع الكتب </div>
+
 
                                                 </div>
                                           <div class="ibox-body">
                                               <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                                                   <thead>
                                                       <tr>
-                                                        <th>#</th>
-                                                            <th>#</th>
-                                                            <th>#</th>
+                                                        <th>رقم</th>
+                                                        <th>اسم</th>
+                                                        <th>المؤلف</th>
+                                                        <th>المجموعة</th>
+                                                        <th>ملاحظات</th>
+                                                        <th>سعر الشراء</th>
+                                                        <th>سعر البيع</th>
                                                             <th>الكمية</th>
-                                                          <th>ملاحظات</th>
-                                                          <th>سعر البيع</th>
-                                                                  <th>سعر الشراء</th>
-                                                                  <th>المجموعة</th>
-                                                                      <th>المؤلف</th>
-                                                                      <th>اسم</th>
+                                                                      <th>#</th>
+                                                                      <th>#</th>
+                                                                      <th>#</th>
                                                       </tr>
                                                   </thead>
                                                   <tfoot>
                                                       <tr>
-                                                        <th>#</th>
-                                                            <th>#</th>
-                                                            <th>#</th>
+                                                          <th>رقم</th>
+                                                        <th>اسم</th>
+                                                        <th>المؤلف</th>
+                                                        <th>المجموعة</th>
+                                                        <th>ملاحظات</th>
+                                                        <th>سعر الشراء</th>
+                                                        <th>سعر البيع</th>
                                                             <th>الكمية</th>
-                                                          <th>ملاحظات</th>
-                                                          <th>سعر البيع</th>
-                                                                  <th>سعر الشراء</th>
-                                                                  <th>المجموعة</th>
-                                                                      <th>المؤلف</th>
-                                                                      <th>اسم</th>
+                                                                      <th>#</th>
+                                                                      <th>#</th>
+                                                                      <th>#</th>
                                                       </tr>
                                                   </tfoot>
                                                   <tbody>
@@ -99,24 +98,26 @@ if (!isset($_SESSION['user_ID'])){
                                          }
 
                                       while($row = mysqli_fetch_assoc($result)) {
+
                               			?>
-                                    <tr style="direction: rtl;">
-                                          <td>
-                                        <button type="button" class="btn btn-info" id="do_in_book" value="<?= $row["id"]; ?>">ادخال</button>
-                                              </td>
-                                              <td>
-                                                  <input class="form-control col-9" type="text" id="note_in"  placeholder="ملاحظات">
-                                              </td>
-                                                <td>
-                                    <input class="form-control col-9" type="number" id="num_in_book"  value="1">
-                                          </td>
-                                          <td><?= $row["total_qty"]; ?></td>
-                                          	<td><?= $row["note"]; ?></td>
-                                            	<td><?= $row["sale_price"]; ?></td>
-                                              	<td><?= $row["cost_price"]; ?></td>
-                              		  <td><?= $row["GroupBook"]; ?></td>
-                              				<td><?= $row["author"]; ?></td>
-                                    		<td><?= $row["name"]; ?></td>
+                                    <tr>
+                                      <td><?= $row["id"]; ?></td>
+                                      <td><?= $row["name"]; ?></td>
+                                      <td><?= $row["author"]; ?></td>
+                                      <td><?= $row["GroupBook"]; ?></td>
+                                      <td><?= $row["note"]; ?></td>
+                                      <td class="color-view bg-teal"> <?= number_format($row["cost_price"],3); ?> $</td>
+                                            <td class="color-view bg-teal"> <?= number_format($row["sale_price"],3); ?> $</td>
+                                              <td class="color-view bg-teal"> <?= $row["total_qty"]; ?></td>
+                                    <td>
+                                      <input class="form-control col-9" type="number" id="num_in_book"  value="1">
+                                    </td>
+                                      <td>
+                                        <input class="form-control col-9" type="text" id="note_in"  placeholder="ملاحظات">
+                                      </td>
+                                        <td>
+                                          <button type="button" class="btn btn-info" id="do_in_book" >ترحيل</button>
+                                        </td>
                                     </tr>
                               			<?php
                                   }
@@ -152,7 +153,37 @@ if (!isset($_SESSION['user_ID'])){
     <script type="text/javascript">
     $(function() {
         $('#example-table').DataTable({
-            pageLength: 20,
+          initComplete: function () {
+this.api().columns().every( function () {
+var column = this;
+var select = $('<select ><option value=""></option></select>')
+.appendTo( $(column.header()) )
+.on( 'change', function () {
+    var val = $.fn.dataTable.util.escapeRegex(
+        $(this).val()
+    );
+
+    column
+        .search( val ? '^'+val+'$' : '', true, false )
+        .draw();
+} );
+
+column.data().unique().sort().each( function ( d, j ) {
+select.append( '<option value="'+d+'">'+d+'</option>' )
+} );
+} );
+},
+          select: true ,
+            pageLength: 10,
+            "language": {
+   "search": "بحث عن الكتب :",
+   "lengthMenu": "عرض  _MENU_ صفوف",
+        "zeroRecords": "لا يوجد بيانات ",
+        "info": "النتائج _PAGE_ في _PAGES_",
+        "infoEmpty": "لا يوجد بيانات لعرضها",
+        "infoFiltered": "(تم البحث  _MAX_ من جميع البيانات)"
+ },
+
             //"ajax": './assets/demo/data/table_data.json',
             /*"columns": [
                 { "data": "name" },
@@ -165,15 +196,14 @@ if (!isset($_SESSION['user_ID'])){
     });
     $(document).ready(function() {
       var table = $('#example-table').DataTable();
-
       $('#example-table tbody').on( 'click', '#do_in_book', function () {
-    $(this).closest('tr').addClass("color-view bg-info");
-      var book_id= $(this).val();
-        var note_in= $(this).closest('td').next('td').find('input').val();
-    var num_in_book= $(this).closest('td').next('td').next('td').find('input').val();
-    var total_qty= $(this).closest('td').next('td').next('td').next('td').html();
+      var book_id= $(this).closest('tr').find('td:eq(0)').html();
+          var book_name= $(this).closest('tr').find('td:eq(1)').html();
+        var note_in= $(this).closest('tr').find('#note_in').val();
+    var num_in_book=$(this).closest('tr').find('#num_in_book').val();
+    var total_qty=  $(this).closest('tr').find('td:eq(7)').html()
   new_total_qty = parseInt(total_qty) + parseInt(num_in_book);
-$(this).closest('td').next('td').next('td').next('td').html(new_total_qty);
+$(this).closest('tr').find('td:eq(7)').html(new_total_qty);
   /// ajax
   $.ajax({
       type: 'POST',
