@@ -13,13 +13,14 @@ header('Content-Type: text/plain');
 
 
  $sql = "INSERT INTO invoice
- (customer_name, total_items, total_qty, total_ammount, note)
+ (customer_name, total_items, total_qty, total_ammount, note , posting_date)
   VALUES (
     '$invoice_data->customer',
     $invoice_data->total_items,
     $invoice_data->total_qty,
     $invoice_data->total_ammount,
-    '$invoice_data->note'
+    '$invoice_data->note',
+    '$time_log'
   )";
 $note ="فاتورة رقم : ".$invoice_data->id;
  if ($conn->query($sql) === TRUE) {
