@@ -44,15 +44,12 @@ if (!isset($_SESSION['user_ID'])){
                                 <div class="row">
                                     <div class="col-md-9">
 
-                                      <div class="ibox ibox-grey">
+                                      <div class="ibox ibox-primary">
 
                                                 <div class="ibox-head">
 
-                                                    <div class="ibox-title">حركة رقم : </div>
-                                                    <div class="ibox-tools">
-                                                        <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
-                                                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
-                                                    </div>
+                                                    <div class="ibox-title"> الكتب المباعة</div>
+
                                                 </div>
                                           <div class="ibox-body">
                                             <table class="table table-hover"  id="items_invoice" cellspacing="0" width="100%" >
@@ -81,14 +78,58 @@ if (!isset($_SESSION['user_ID'])){
 
                                                     <div class="ibox-head">
 
-                                                        <div class="ibox-title">حركة رقم : </div>
+                                                        <div class="ibox-title">فاتورة رقم : </div>
                                                         <div class="ibox-tools">
                                                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                                                             <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
                                                         </div>
                                                     </div>
                                               <div class="ibox-body">
+                                                <form class="form-horizontal" id="form-invoice"  novalidate="novalidate">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label"> عدد الاصناف </label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="text" name="name" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">العدد الكلي</label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="text" name="author" readonly>
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="form-group row">
+                                                          <label class="col-sm-3 col-form-label">مجموع المبلغ</label>
+                                                        <div class="col-sm-9">
+                                                          <div class="input-group">
+                                                              <div class="input-group-addon bg-white">$</div>
+                                                              <input class="form-control" type="text" placeholder="" name="cost_price" readonly>
+                                                              <div class="input-group-addon bg-white">.00</div>
+                                                              </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">اسم الزبون : </label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="text" name="note">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">ملاحظات :  </label>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="text" name="note">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12 ml-sm-auto">
+                                                            <button class="btn btn-info btn-block" type="submit">ترحيل</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
                                               </div>
                                           </div>
                                             </div>
@@ -100,7 +141,7 @@ if (!isset($_SESSION['user_ID'])){
 
                                                 <div class="ibox-head">
 
-                                                    <div class="ibox-title">حركة رقم : </div>
+                                                    <div class="ibox-title">الكتب </div>
                                                     <div class="ibox-tools">
                                                         <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                                                         <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
@@ -196,21 +237,37 @@ if (!isset($_SESSION['user_ID'])){
   <?php require_once('../Parts/script.html'); ?>
     <!-- PAGE LEVEL SCRIPTS-->
     <script type="text/javascript">
-      var inventory = [];
-        var t = $('#items_invoice').DataTable();
+  var inventory = [];
+  var invoice = [
+    {
+      "id" : 0,
+      "customer" : "",
+      "note" : "",
+      "total_items" : 0,
+      "total_qty" : 0 ,
+      "total_ammount" : 0
+    }
+  ];
+  $('#items_invoice').dataTable( {
+    "searching": false,
+    "paging":   false,
+        "ordering": false,
+        "info":     false
+  } );
+    var t = $('#items_invoice').DataTable();
     $(document).ready(function() {
-function check_items (idb ,data)
+
+function check_items (id ,data)
 {
+
   var find= false;
-  for (var i = inventory.length-1 ; i >= 0; i--){
-  // look for the entry with a matching `code` value
-  if (inventory[i].id == idb){
+  for (var i = 0 ; i <= inventory.length-1 ; i++){
+  if (inventory[i].id === id){
     find=true;
 inventory[i].quantity++;
+invoice[0].total_qty++;
 inventory[i].amount = inventory[i].price * inventory[i].quantity ;
-  //var last = inventory.length-1;
-  alert(i);
-//eror here i 
+invoice[0].total_ammount +=inventory[i].amount;
  t.row(i).data([
         inventory[i].id,
        inventory[i].name,
@@ -222,8 +279,9 @@ inventory[i].amount = inventory[i].price * inventory[i].quantity ;
   }
 }
 if(!find){
+  invoice[0].total_items++;
+    inventory.push(data);
   last = inventory.length-1;
-  inventory.push(data);
   t.row.add( [
       inventory[last].id,
       inventory[last].name,
@@ -243,15 +301,14 @@ $('#example-table tbody').on( 'click', '#addRow', function () {
         var sale_price= $(this).closest('tr').find('td:eq(5)').html();
         sale_price = parseInt(sale_price)
         var amount = sale_price* 1;
-         var data_items = { "id" : book_id, "name":book_name , "price" :sale_price , "quantity":1 ,"amount" :amount };
+          data_items = { "id" : book_id, "name":book_name , "price" :sale_price , "quantity":1 ,"amount" :amount };
          //alert(data_items.id);
-        check_items(book_id , data_items);
+        check_items( book_id, data_items);
 
 } );
 $('#items_invoice tbody').on( 'click', '#deleteRow', function () {
   var index = t.row( $(this).parents('tr')).index();
-
-  delete inventory[index].id;
+inventory.splice(index, 1);
 t.row( $(this).parents('tr') ).remove().draw();
 
 } );
@@ -268,22 +325,9 @@ t.row( $(this).parents('tr') ).remove().draw();
         "info": "النتائج _PAGE_ في _PAGES_",
         "infoEmpty": "لا يوجد بيانات لعرضها",
         "infoFiltered": "(تم البحث  _MAX_ من جميع البيانات)"
- },
-
-            //"ajax": './assets/demo/data/table_data.json',
-            /*"columns": [
-                { "data": "name" },
-                { "data": "office" },
-                { "data": "extn" },
-                { "data": "start_date" },
-                { "data": "salary" }
-            ]*/
+ }
         });
 
-
-
-        // Automatically add a first row of data
-      //  $('#addRow').click();
 });
     </script>
       <script type="text/javascript">

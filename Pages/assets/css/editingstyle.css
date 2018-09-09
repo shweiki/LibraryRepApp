@@ -11,3 +11,6 @@
 .ibox {
     direction: rtl;
 }
+th{
+  text-align: right;
+}
