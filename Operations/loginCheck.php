@@ -14,7 +14,7 @@ while($row = $result->fetch_assoc()) {
 $_SESSION["user_ID"] = $row['id'];
 $_SESSION["user_Name"] = $row['fullname'];
 }
-    echo "<script>window.location='http://" . $_SERVER['SERVER_NAME'] ."/LibraryRepApp/Pages/dashborad.php';</script>";
+    echo "<script>window.location='http://" . $_SERVER['SERVER_NAME'] ."/LibraryRepApp/Pages/Sales.php';</script>";
 
 
 }
